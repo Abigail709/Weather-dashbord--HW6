@@ -9,7 +9,6 @@ var weatherApiKey = "c7216d2bb13b8839bf16abaa19d60156"
 function formSubmitHandler (event) {
     event.preventDefault();
 
-
     var city = citySearchEl.value.trim();
 
         if (city) {
@@ -25,7 +24,7 @@ function getWeather(city) {
     var weatherUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + city+ "&appid=" + weatherApiKey + "&units=imperial";
     
     
-    
+
     fetch(weatherUrl)
     .then(function(response) {
             
@@ -37,6 +36,10 @@ function getWeather(city) {
     
     
 };
+
+function history() {
+    var stored = localStorage.getItem
+}
 
 searchFormEl.addEventListener("submit", formSubmitHandler);
 
@@ -74,6 +77,52 @@ var displayWeather = function(weather, citySearch) {
 
    let lon = weather.coord.lon;
    let lat = weather.coord.lat;
-   console.log(lat, lon)
    getForecast(lat, lon);
 };
+
+var getForecast = function (lat, lon) {
+    var urlDailyAndUvi = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&units=imperial&appid=" + weatherApiKey;
+
+
+    fetch(urlDailyAndUvi).then(function(response) {
+        
+        response.json().then(function(data) {
+            
+            for (var i=1; i<6; i++){
+                var targetCard = document.querySelector("#card-" + i);
+                
+                var dateEl = document.createElement("div");
+                var weatherIconEl = document.createElement('img');
+                var tempEl = document.createElement('div');
+                var windSpeedEl = document.createElement('div');
+                var humidityEl = document.createElement('div');
+   
+   
+                dateEl.textContent = moment(data.daily[i].dt * 1000).format("M/D/YY")
+                tempEl.textContent = Math.round(data.daily[i].temp.day) + "°";
+                windSpeedEl.textContent = "Wind:" + Math.round(data.daily[i].wind_speed) + " mph"
+                humidityEl.textContent = "Humidity:" + data.daily[i].humidity + " %";
+   
+   
+                weatherIconEl.setAttribute("src", `https://openweathermap.org/img/wn/${data.daily[i].weather[0].icon}@2x.png`);
+   
+   
+                targetCard.appendChild(dateEl);
+                targetCard.appendChild(weatherIconEl);
+                targetCard.appendChild(tempEl);
+                targetCard.appendChild(windSpeedEl);
+                targetCard.appendChild(humidityEl);
+   
+   
+   
+   
+               
+               }
+   
+   
+           });
+       });
+   };
+            
+
+            
