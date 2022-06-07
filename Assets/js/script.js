@@ -57,7 +57,6 @@ var displayWeather = function(weather, citySearch) {
     windSpeedEl.classList = "list-group-item";
 
 
-
     currentDate.textContent=" (" + moment(weather.dt.value).format("M/D/YY") + ") ";
     tempEl.textContent = "Current Temp: " + Math.round(weather.main.temp) + " °F";
     humidityEl.textContent = "Humidity: " + Math.round(weather.main.humidity) + " %";
@@ -65,3 +64,16 @@ var displayWeather = function(weather, citySearch) {
 
 
     weatherIcon.setAttribute("src", `https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`);
+
+    currentResult.appendChild(currentDate);
+    currentWeatherEl.appendChild(weatherIcon);
+    currentWeatherEl.appendChild(tempEl);
+    currentWeatherEl.appendChild(humidityEl);
+    currentWeatherEl.appendChild(windSpeedEl);
+
+
+   let lon = weather.coord.lon;
+   let lat = weather.coord.lat;
+   console.log(lat, lon)
+   getForecast(lat, lon);
+};
