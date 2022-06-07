@@ -39,3 +39,16 @@ function getWeather(city) {
 };
 
 searchFormEl.addEventListener("submit", formSubmitHandler);
+
+var displayWeather = function(weather, citySearch) {
+
+    currentWeatherEl.textContent = "";
+    currentResult.textContent = citySearch.toUpperCase();
+
+    
+    var currentDate = document.createElement("div")
+    var weatherIcon = document.createElement("img")
+    var tempEl = document.createElement("div");
+    var humidityEl = document.createElement("div");
+    var windSpeedEl = document.createElement("div");
+
