@@ -21,3 +21,21 @@ function formSubmitHandler (event) {
         }
     };
 
+function getWeather(city) {
+    var weatherUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + city+ "&appid=" + weatherApiKey + "&units=imperial";
+    
+    
+    
+    fetch(weatherUrl)
+    .then(function(response) {
+            
+        response.json().then(function(data) {
+            displayWeather(data, city);
+                
+           });
+    });
+    
+    
+};
+
+searchFormEl.addEventListener("submit", formSubmitHandler);
