@@ -52,3 +52,16 @@ var displayWeather = function(weather, citySearch) {
     var humidityEl = document.createElement("div");
     var windSpeedEl = document.createElement("div");
 
+    tempEl.classList = "list-group-item"
+    humidityEl.classList = "list-group-item";
+    windSpeedEl.classList = "list-group-item";
+
+
+
+    currentDate.textContent=" (" + moment(weather.dt.value).format("M/D/YY") + ") ";
+    tempEl.textContent = "Current Temp: " + Math.round(weather.main.temp) + " °F";
+    humidityEl.textContent = "Humidity: " + Math.round(weather.main.humidity) + " %";
+    windSpeedEl.textContent = "Wind Speed: " + Math.round(weather.wind.speed) + " MPH";
+
+
+    weatherIcon.setAttribute("src", `https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`);
